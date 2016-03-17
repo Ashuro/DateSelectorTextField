@@ -19,6 +19,7 @@
 @interface DateSelectorTextField ()<UIPickerViewDelegate,UIPickerViewDataSource>
 @property (nonatomic,strong)UIPickerView * datePickerView;
 @property (nonatomic,strong)UIView       * accesseryView;
+@property (nonatomic,strong)UILabel      * tipLabel;
 @property (nonatomic,strong)NSDateFormatter * formatter;
 @property (nonatomic,strong)NSMutableArray  * data;
 @end
@@ -67,6 +68,7 @@
 -(UIPickerView *)datePickerView{
     if (!_datePickerView) {
         _datePickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200)];
+        _datePickerView.backgroundColor = [UIColor whiteColor];
         _datePickerView.dataSource = self;
         _datePickerView.delegate = self;
     }
@@ -75,20 +77,50 @@
 
 -(UIView *)accesseryView{
     if (!_accesseryView) {
-        _accesseryView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30)];
-        _accesseryView.backgroundColor = [UIColor whiteColor];
+        _accesseryView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 40)];
+        _accesseryView.backgroundColor = [UIColor colorWithRed:0.933 green:0.937 blue:0.941 alpha:1.00];
+        
+        
         UIButton * cancelBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         cancelBtn.translatesAutoresizingMaskIntoConstraints = NO;
-        [cancelBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
-        [cancelBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [cancelBtn setTitleColor:[UIColor colorWithRed:0.020 green:0.537 blue:0.910 alpha:1.00] forState:UIControlStateNormal];
         [cancelBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [cancelBtn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_accesseryView addSubview:cancelBtn];
-        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:cancelBtn attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeTrailing multiplier:1 constant:-15]];
+        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:cancelBtn attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeLeading multiplier:1 constant:15]];
         [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:cancelBtn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
         [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:cancelBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+        [cancelBtn addConstraint:[NSLayoutConstraint constraintWithItem:cancelBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:30]];
+        
+        
+        UIButton * submitBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+        submitBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        [submitBtn setTitle:@"完成" forState:UIControlStateNormal];
+        submitBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        
+        [submitBtn setTitleColor:[UIColor colorWithRed:0.020 green:0.537 blue:0.910 alpha:1.00] forState:UIControlStateNormal];
+        [submitBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [submitBtn addTarget:self action:@selector(submitBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_accesseryView addSubview:submitBtn];
+        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeTrailing multiplier:1 constant:-15]];
+        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+        [submitBtn addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:30]];
+        
+        self.tipLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+        self.tipLabel.font = [UIFont systemFontOfSize:12];
+        self.tipLabel.textColor = [UIColor lightGrayColor];
+        self.tipLabel.text = self.placeholder;
+        self.tipLabel.textAlignment = NSTextAlignmentCenter;
+        self.tipLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [_accesseryView addSubview:self.tipLabel];
+        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:self.tipLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:cancelBtn attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];
+        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:self.tipLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:submitBtn attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
+        [_accesseryView addConstraint:[NSLayoutConstraint constraintWithItem:self.tipLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_accesseryView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
     }
     return _accesseryView;
 }
@@ -108,19 +140,21 @@
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
-- (void)cancelBtnClick:(UIButton *)sender{
-//    self.text = [self.formatter stringFromDate:self.datePickerView.date];
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
-//        [self.delegate textFieldDidEndEditing:self];
-//    }
-//    [[NSNotificationCenter defaultCenter]postNotificationName:UITextFieldTextDidEndEditingNotification object:sender];
-//    [self sendActionsForControlEvents:UIControlEventValueChanged];
-//    [self resignFirstResponder];
+- (void)submitBtnClick:(UIButton *)sender{
+    self.text = [self getValue];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
+        [self.delegate textFieldDidEndEditing:self];
+    }
+    [[NSNotificationCenter defaultCenter]postNotificationName:UITextFieldTextDidEndEditingNotification object:sender];
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    [self resignFirstResponder];
 }
 
-//-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-//    
-//}
+
+- (void)cancelBtnClick:(UIButton *)sender{
+    [self resignFirstResponder];
+}
+
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     return  [(DateSelectorTextFieldModel *)[[self.data objectAtIndex:component] objectAtIndex:row] value];
@@ -143,9 +177,7 @@
         default:
             break;
     }
-    
-    
-    
+//    self.text = [self getValue];
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
@@ -240,6 +272,9 @@
         default:
             break;
     }
+    
+    [self.datePickerView reloadAllComponents];
+    
 }
 
 
@@ -314,8 +349,38 @@
     [self.datePickerView reloadComponent:2];
 }
 
+-(NSString *)getValue{
 
-
+    NSString * value = [NSString new];
+    if (self.selectorMode == DateSelectorTextFieldModeYear) {
+        DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
+        value = yearModel.code;
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeYearMonth){
+        DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
+        DateSelectorTextFieldModel * monthModel = [[self.data objectAtIndex:1] objectAtIndex:[self.datePickerView selectedRowInComponent:1]];
+        value = [NSString stringWithFormat:@"%@-%@",yearModel.code,monthModel.code];
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeYearMonthDate){
+        DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
+        DateSelectorTextFieldModel * monthModel = [[self.data objectAtIndex:1] objectAtIndex:[self.datePickerView selectedRowInComponent:1]];
+        DateSelectorTextFieldModel * dayModel   = [[self.data objectAtIndex:2] objectAtIndex:[self.datePickerView selectedRowInComponent:2]];
+        value = [NSString stringWithFormat:@"%@-%@-%@",yearModel.code,monthModel.code,dayModel.code];
+        
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeYearMonthDate){
+        DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
+        value = yearModel.code;
+    }
+    
+    
+    
+    return value;
+}
+-(void)setPlaceholder:(NSString *)placeholder{
+    [super setPlaceholder:placeholder];
+    self.tipLabel.text = placeholder;
+}
 -(NSMutableArray *)data{
     if (!_data) {
         _data = [NSMutableArray new];

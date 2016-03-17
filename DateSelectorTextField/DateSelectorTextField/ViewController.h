@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "DateSelectorTextField.h"
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet DateSelectorTextField *tf;
 
 @end
 

@@ -46,6 +46,22 @@
     self.inputView = self.datePickerView;
     self.inputAccessoryView = self.accesseryView;
     
+    if (self.selectorMode == DateSelectorTextFieldModeYearMonthDate) {
+        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
+        [self.datePickerView selectRow:[[self.data objectAtIndex:1] count]-1 inComponent:1 animated:NO];
+        [self.datePickerView selectRow:[[self.data objectAtIndex:2] count]-1 inComponent:2 animated:NO];
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeYearMonth){
+        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
+        [self.datePickerView selectRow:[[self.data objectAtIndex:1] count]-1 inComponent:1 animated:NO];
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeYear){
+        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeBodyLength){
+        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
+    }
+    
 }
 
 -(UIPickerView *)datePickerView{
@@ -115,6 +131,7 @@
     switch (self.selectorMode) {
         case DateSelectorTextFieldModeYearMonthDate:
             [self remakeData];
+            
             break;
         case DateSelectorTextFieldModeYearMonth:
             [self remakeData];
@@ -229,16 +246,60 @@
 -(void)remakeData{
     
     if (self.selectorMode == DateSelectorTextFieldModeYearMonthDate) {
-        DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
-        DateSelectorTextFieldModel * monthModel = [[self.data objectAtIndex:1] objectAtIndex:[self.datePickerView selectedRowInComponent:1]];
-        
-        
-        
-        
+        [self remakeMonth];
+        [self remakeDate];
+    }
+    else if(self.selectorMode == DateSelectorTextFieldModeYearMonth){
+        [self remakeMonth];
+    }
+
+}
+
+-(void)remakeMonth{
+    DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
+    NSInteger loopCount =  12;
+    NSMutableArray * monthArr = [NSMutableArray new];
+    if (yearModel.code.integerValue == [[NSDate date] year]) {
+        loopCount = [[NSDate date] month];
+        for (NSInteger i = 1;i <= loopCount; i++) {
+            DateSelectorTextFieldModel * model = [[DateSelectorTextFieldModel alloc]init];
+            model.code = [NSString stringWithFormat:@"%.2ld",i];
+            model.value= [NSString stringWithFormat:@"%ld月",i];
+            [monthArr addObject:model];
+        }
+        [self.data replaceObjectAtIndex:1 withObject:monthArr];
+    }
+    else{
+        for (NSInteger i = 1;i <= loopCount; i++) {
+            DateSelectorTextFieldModel * model = [[DateSelectorTextFieldModel alloc]init];
+            model.code = [NSString stringWithFormat:@"%.2ld",i];
+            model.value= [NSString stringWithFormat:@"%ld月",i];
+            [monthArr addObject:model];
+        }
+        [self.data replaceObjectAtIndex:1 withObject:monthArr];
+    }
+    [self.datePickerView reloadComponent:1];
+}
+
+-(void)remakeDate{
+    DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
+    DateSelectorTextFieldModel * monthModel = [[self.data objectAtIndex:1] objectAtIndex:[self.datePickerView selectedRowInComponent:1]];
+//    DateSelectorTextFieldModel * dateModel = [[self.data objectAtIndex:2] objectAtIndex:[self.datePickerView selectedRowInComponent:2]];
+    NSLog(@"%ld  %ld",monthModel.code.integerValue,[NSDate date].month);
+    if (monthModel.code.integerValue == [NSDate date].month&&
+        yearModel.code.integerValue == [NSDate date].year) {
+        NSMutableArray * dateArr = [NSMutableArray new];
+        for (NSInteger i = 1;i <= [NSDate date].day; i++) {
+            DateSelectorTextFieldModel * model = [[DateSelectorTextFieldModel alloc]init];
+            model.code = [NSString stringWithFormat:@"%.2ld",i];
+            model.value= [NSString stringWithFormat:@"%ld日",i];
+            [dateArr addObject:model];
+        }
+        [self.data replaceObjectAtIndex:2 withObject:dateArr];
+    }
+    else{
         NSDate * selectedDate = [[NSDateFormatter dateFormatterWithFormat:@"yyyy-MM"]dateFromString:[NSString stringWithFormat:@"%@-%@",yearModel.code,monthModel.code]];
-        
         NSRange dayRange = [[NSCalendar currentCalendar]rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:selectedDate];
-        
         NSMutableArray * dateArr = [NSMutableArray new];
         for (NSInteger i = 1;i <= dayRange.length; i++) {
             DateSelectorTextFieldModel * model = [[DateSelectorTextFieldModel alloc]init];
@@ -247,14 +308,11 @@
             [dateArr addObject:model];
         }
         [self.data replaceObjectAtIndex:2 withObject:dateArr];
-        [self.datePickerView reloadComponent:2];
     }
-    else{
-        
-    }
-
+    
+    
+    [self.datePickerView reloadComponent:2];
 }
-
 
 
 

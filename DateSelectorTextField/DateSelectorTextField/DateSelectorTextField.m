@@ -84,7 +84,7 @@
         UIButton * cancelBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         cancelBtn.translatesAutoresizingMaskIntoConstraints = NO;
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         
         [cancelBtn setTitleColor:[UIColor colorWithRed:0.020 green:0.537 blue:0.910 alpha:1.00] forState:UIControlStateNormal];
         [cancelBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -99,7 +99,7 @@
         UIButton * submitBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         submitBtn.translatesAutoresizingMaskIntoConstraints = NO;
         [submitBtn setTitle:@"完成" forState:UIControlStateNormal];
-        submitBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        submitBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         
         [submitBtn setTitleColor:[UIColor colorWithRed:0.020 green:0.537 blue:0.910 alpha:1.00] forState:UIControlStateNormal];
         [submitBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -111,7 +111,7 @@
         [submitBtn addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:30]];
         
         self.tipLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-        self.tipLabel.font = [UIFont systemFontOfSize:12];
+        self.tipLabel.font = [UIFont boldSystemFontOfSize:12];
         self.tipLabel.textColor = [UIColor lightGrayColor];
         self.tipLabel.text = self.placeholder;
         self.tipLabel.textAlignment = NSTextAlignmentCenter;

@@ -24,6 +24,6 @@ typedef NS_ENUM(NSUInteger, DateSelectorTextFieldMode) {
 
 
 @interface DateSelectorTextField : UITextField
-@property (nonatomic,strong)DateSelectorTextFieldModel * model;
+
 @property (nonatomic,assign)DateSelectorTextFieldMode selectorMode;
 @end

@@ -18,10 +18,11 @@
 
 @interface DateSelectorTextField ()<UIPickerViewDelegate,UIPickerViewDataSource>
 @property (nonatomic,strong)UIPickerView * datePickerView;
+@property (nonatomic,strong)NSMutableArray  * data;
 @property (nonatomic,strong)UIView       * accesseryView;
 @property (nonatomic,strong)UILabel      * tipLabel;
 @property (nonatomic,strong)NSDateFormatter * formatter;
-@property (nonatomic,strong)NSMutableArray  * data;
+
 @end
 
 @implementation DateSelectorTextField
@@ -46,23 +47,6 @@
     self.tintColor = [UIColor clearColor];
     self.inputView = self.datePickerView;
     self.inputAccessoryView = self.accesseryView;
-    
-    if (self.selectorMode == DateSelectorTextFieldModeYearMonthDate) {
-        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
-        [self.datePickerView selectRow:[[self.data objectAtIndex:1] count]-1 inComponent:1 animated:NO];
-        [self.datePickerView selectRow:[[self.data objectAtIndex:2] count]-1 inComponent:2 animated:NO];
-    }
-    else if (self.selectorMode == DateSelectorTextFieldModeYearMonth){
-        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
-        [self.datePickerView selectRow:[[self.data objectAtIndex:1] count]-1 inComponent:1 animated:NO];
-    }
-    else if (self.selectorMode == DateSelectorTextFieldModeYear){
-        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
-    }
-    else if (self.selectorMode == DateSelectorTextFieldModeBodyLength){
-        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
-    }
-    
 }
 
 -(UIPickerView *)datePickerView{
@@ -165,38 +149,23 @@
     switch (self.selectorMode) {
         case DateSelectorTextFieldModeYearMonthDate:
             [self remakeData];
-            
             break;
         case DateSelectorTextFieldModeYearMonth:
             [self remakeData];
             break;
         case DateSelectorTextFieldModeYear:
+            [self remakeData];
             break;
         case DateSelectorTextFieldModeBodyLength:
             break;
         default:
             break;
     }
-//    self.text = [self getValue];
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-
-    switch (self.selectorMode) {
-        case DateSelectorTextFieldModeYearMonthDate:
-            return [self.data[component]count];
-            break;
-        case DateSelectorTextFieldModeYearMonth:
-            return [self.data[component]count];
-            break;
-        case DateSelectorTextFieldModeYear:
-            return [self.data[component]count];
-        case DateSelectorTextFieldModeBodyLength:
-            return [self.data[component]count];
-        default:
-            break;
-    }
-    return 0;
+    NSInteger componentCount = [self.data[component]count];
+    return componentCount;
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -214,15 +183,18 @@
             componentsCount = 1;
             break;
         case DateSelectorTextFieldModeBodyLength:
-            componentsCount = self.data.count;
+            componentsCount = 1;//self.data.count;
+            break;
         default:
+            componentsCount = 1;
             break;
     }
-    
     return componentsCount;
 }
 -(void)setSelectorMode:(DateSelectorTextFieldMode)selectorMode{
     _selectorMode = selectorMode;
+    
+    [self.data removeAllObjects];
     switch (selectorMode) {
         case DateSelectorTextFieldModeYearMonthDate:{
             NSInteger currentDay = [[NSDate date] day];
@@ -274,7 +246,7 @@
     }
     
     [self.datePickerView reloadAllComponents];
-    
+    [self resetSelection];
 }
 
 
@@ -319,7 +291,7 @@
 -(void)remakeDate{
     DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
     DateSelectorTextFieldModel * monthModel = [[self.data objectAtIndex:1] objectAtIndex:[self.datePickerView selectedRowInComponent:1]];
-//    DateSelectorTextFieldModel * dateModel = [[self.data objectAtIndex:2] objectAtIndex:[self.datePickerView selectedRowInComponent:2]];
+
     NSLog(@"%ld  %ld",monthModel.code.integerValue,[NSDate date].month);
     if (monthModel.code.integerValue == [NSDate date].month&&
         yearModel.code.integerValue == [NSDate date].year) {
@@ -349,6 +321,23 @@
     [self.datePickerView reloadComponent:2];
 }
 
+-(void)resetSelection{
+    if (self.selectorMode == DateSelectorTextFieldModeYearMonthDate) {
+        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
+        [self.datePickerView selectRow:[[self.data objectAtIndex:1] count]-1 inComponent:1 animated:NO];
+        [self.datePickerView selectRow:[[self.data objectAtIndex:2] count]-1 inComponent:2 animated:NO];
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeYearMonth){
+        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
+        [self.datePickerView selectRow:[[self.data objectAtIndex:1] count]-1 inComponent:1 animated:NO];
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeYear){
+        [self.datePickerView selectRow:[[self.data objectAtIndex:0] count]-1 inComponent:0 animated:NO];
+    }
+    else if (self.selectorMode == DateSelectorTextFieldModeBodyLength){
+        [self.datePickerView selectRow:45 inComponent:0 animated:NO];
+    }
+}
 -(NSString *)getValue{
 
     NSString * value = [NSString new];
@@ -368,7 +357,7 @@
         value = [NSString stringWithFormat:@"%@-%@-%@",yearModel.code,monthModel.code,dayModel.code];
         
     }
-    else if (self.selectorMode == DateSelectorTextFieldModeYearMonthDate){
+    else if (self.selectorMode == DateSelectorTextFieldModeBodyLength){
         DateSelectorTextFieldModel * yearModel = [[self.data objectAtIndex:0] objectAtIndex:[self.datePickerView selectedRowInComponent:0]];
         value = yearModel.code;
     }

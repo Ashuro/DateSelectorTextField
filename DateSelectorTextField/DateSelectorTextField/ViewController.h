@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "DateSelectorTextField.h"
+#import "WKDateSelector.h"
 @interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet DateSelectorTextField *tf;
+@property (weak, nonatomic) IBOutlet WKDateSelector *wkview;
 
 @end
 

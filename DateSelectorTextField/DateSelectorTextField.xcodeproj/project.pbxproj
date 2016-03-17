@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37C3039C1C9AF09500169F98 /* WKDateSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C3039B1C9AF09500169F98 /* WKDateSelector.m */; };
 		992A36471C99024900CAFB1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A36461C99024900CAFB1C /* main.m */; };
 		992A364A1C99024900CAFB1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A36491C99024900CAFB1C /* AppDelegate.m */; };
 		992A364D1C99024900CAFB1C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A364C1C99024900CAFB1C /* ViewController.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37C3039A1C9AF09500169F98 /* WKDateSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKDateSelector.h; sourceTree = "<group>"; };
+		37C3039B1C9AF09500169F98 /* WKDateSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKDateSelector.m; sourceTree = "<group>"; };
 		992A36421C99024900CAFB1C /* DateSelectorTextField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DateSelectorTextField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		992A36461C99024900CAFB1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		992A36481C99024900CAFB1C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -116,6 +119,8 @@
 				992A36901C9AA6FE00CAFB1C /* NSDateFormatter+Category.m */,
 				992A36781C99025B00CAFB1C /* DateSelectorTextField.h */,
 				992A36791C99025B00CAFB1C /* DateSelectorTextField.m */,
+				37C3039A1C9AF09500169F98 /* WKDateSelector.h */,
+				37C3039B1C9AF09500169F98 /* WKDateSelector.m */,
 				992A36481C99024900CAFB1C /* AppDelegate.h */,
 				992A36491C99024900CAFB1C /* AppDelegate.m */,
 				992A364B1C99024900CAFB1C /* ViewController.h */,
@@ -287,6 +292,7 @@
 			files = (
 				992A364D1C99024900CAFB1C /* ViewController.m in Sources */,
 				992A36921C9AA6FE00CAFB1C /* NSDateFormatter+Category.m in Sources */,
+				37C3039C1C9AF09500169F98 /* WKDateSelector.m in Sources */,
 				992A364A1C99024900CAFB1C /* AppDelegate.m in Sources */,
 				992A36911C9AA6FE00CAFB1C /* NSDate+Category.m in Sources */,
 				992A367A1C99025B00CAFB1C /* DateSelectorTextField.m in Sources */,

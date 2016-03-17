@@ -18,10 +18,15 @@
     [super viewDidLoad];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.tf.selectorMode = DateSelectorTextFieldModeYear;
+        self.tf.selectorMode = DateSelectorTextFieldModeBodyLength;
     });
     
-    
+    [self.wkview addTarget:self action:@selector(selectorMode:) forControlEvents:UIControlEventValueChanged];
+}
+
+
+-(void)selectorMode:(WKDateSelector *)sender{
+    NSLog(@"%@",sender.value);
 }
 
 - (void)didReceiveMemoryWarning {

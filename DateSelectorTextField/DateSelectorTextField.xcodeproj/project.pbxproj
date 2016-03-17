@@ -16,6 +16,8 @@
 		992A36601C99024900CAFB1C /* DateSelectorTextFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A365F1C99024900CAFB1C /* DateSelectorTextFieldTests.m */; };
 		992A366B1C99024900CAFB1C /* DateSelectorTextFieldUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A366A1C99024900CAFB1C /* DateSelectorTextFieldUITests.m */; };
 		992A367A1C99025B00CAFB1C /* DateSelectorTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A36791C99025B00CAFB1C /* DateSelectorTextField.m */; };
+		992A36911C9AA6FE00CAFB1C /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A368E1C9AA6FE00CAFB1C /* NSDate+Category.m */; };
+		992A36921C9AA6FE00CAFB1C /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A36901C9AA6FE00CAFB1C /* NSDateFormatter+Category.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,10 @@
 		992A366C1C99024900CAFB1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		992A36781C99025B00CAFB1C /* DateSelectorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateSelectorTextField.h; sourceTree = "<group>"; };
 		992A36791C99025B00CAFB1C /* DateSelectorTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateSelectorTextField.m; sourceTree = "<group>"; };
+		992A368D1C9AA6FE00CAFB1C /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
+		992A368E1C9AA6FE00CAFB1C /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
+		992A368F1C9AA6FE00CAFB1C /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
+		992A36901C9AA6FE00CAFB1C /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,10 @@
 		992A36441C99024900CAFB1C /* DateSelectorTextField */ = {
 			isa = PBXGroup;
 			children = (
+				992A368D1C9AA6FE00CAFB1C /* NSDate+Category.h */,
+				992A368E1C9AA6FE00CAFB1C /* NSDate+Category.m */,
+				992A368F1C9AA6FE00CAFB1C /* NSDateFormatter+Category.h */,
+				992A36901C9AA6FE00CAFB1C /* NSDateFormatter+Category.m */,
 				992A36781C99025B00CAFB1C /* DateSelectorTextField.h */,
 				992A36791C99025B00CAFB1C /* DateSelectorTextField.m */,
 				992A36481C99024900CAFB1C /* AppDelegate.h */,
@@ -276,7 +286,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				992A364D1C99024900CAFB1C /* ViewController.m in Sources */,
+				992A36921C9AA6FE00CAFB1C /* NSDateFormatter+Category.m in Sources */,
 				992A364A1C99024900CAFB1C /* AppDelegate.m in Sources */,
+				992A36911C9AA6FE00CAFB1C /* NSDate+Category.m in Sources */,
 				992A367A1C99025B00CAFB1C /* DateSelectorTextField.m in Sources */,
 				992A36471C99024900CAFB1C /* main.m in Sources */,
 			);
@@ -502,6 +514,7 @@
 				992A36711C99024900CAFB1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		992A36721C99024900CAFB1C /* Build configuration list for PBXNativeTarget "DateSelectorTextFieldTests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +523,7 @@
 				992A36741C99024900CAFB1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		992A36751C99024900CAFB1C /* Build configuration list for PBXNativeTarget "DateSelectorTextFieldUITests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +532,7 @@
 				992A36771C99024900CAFB1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
